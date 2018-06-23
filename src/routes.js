@@ -17,6 +17,7 @@ const routes = () => {
 						<Route exact path="/" component={Home} />
 						<Route path="/login" component={Login} />
 						<Route path="/profile" component={Profile} />
+						<Route component={() => <p>Page Not found</p>} />
 					</Switch>
 				</App>
 			</div>
