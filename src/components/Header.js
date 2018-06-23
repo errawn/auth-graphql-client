@@ -15,15 +15,18 @@ class Header extends Component {
           <NavItem>
             <Link to="/login">Login</Link>
           </NavItem>
-          <NavItem eventKey={2} href="#">
+          <NavItem>
             <Link to="/signup">Sign Up</Link>
           </NavItem>
-          <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-            <MenuItem eventKey={3.1}>Action</MenuItem>
-            <MenuItem eventKey={3.2}>Another action</MenuItem>
-            <MenuItem eventKey={3.3}>Something else here</MenuItem>
+          <NavDropdown eventKey={3} title="Profile" id="basic-nav-dropdown">
+            <MenuItem eventKey={3.1}>
+              <Link to="/profile">My Profile</Link>
+            </MenuItem>
+            <MenuItem eventKey={3.2}>
+              <Link to="/blogs">My Blogs</Link>
+            </MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={3.4}>Separated link</MenuItem>
+            <MenuItem eventKey={3.4}>Logout</MenuItem>
           </NavDropdown>
         </Nav>
       </Navbar>
