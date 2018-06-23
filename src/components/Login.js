@@ -2,6 +2,14 @@ import React from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
+import {  
+	Button,
+	ControlLabel, 
+	Form,  
+	FormControl,
+	FormGroup,
+} from 'react-bootstrap'
+
 class Login extends React.Component {
 	constructor(props) {
 		super(props)
@@ -23,14 +31,31 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.onSubmit.bind(this)}>
-				<label>Email</label>
-				<input type="text" onChange={(e) => this.setState({ email: e.target.value})} value={this.state.email} />
-				<br/>
-				<label>Password</label>
-				<input type="password" onChange={(e) => this.setState({ password: e.target.value})} value={this.state.password} />
-				<button type="submit" >Login</button>
-			</form>
+			<Form onSubmit={this.onSubmit.bind(this)}>
+				<FormGroup
+					role="form"
+					controlId="email"
+				>
+					<ControlLabel>Email address:</ControlLabel>
+					<FormControl
+						type="text"
+						value={this.state.email}
+						onChange={(e) => this.setState({ email: e.target.value})}
+					/>
+				</FormGroup>
+				<FormGroup
+					role="form"
+					controlId="password"
+				>
+					<ControlLabel>Password:</ControlLabel>
+					<FormControl
+						type="password"
+						value={this.state.password}
+						onChange={(e) => this.setState({ password: e.target.value})}
+					/>
+				</FormGroup>
+				<Button type="submit">Sign In</Button>
+			</Form>
 		)
 	}
 
