@@ -1,18 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
+import { checkAuth } from './services/auth'
+
 import App from './App'
 import Header from './components/Header'
 import Home from './components/Home'
 import Login from './components/Login'
 import Profile from './components/Profile'
 
-// Check if client has token in clientside
-const checkAuth = () => { 
-	if (localStorage.getItem('token'))
-		return true
-	return false 
-}
 // PrivateRoute Hoc
 const PrivateRoute = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => 
