@@ -1,28 +1,26 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
+import { Query } from 'react-apollo'
 
-import currentUserQuery from '../queries/CurrentUser'
+import CURRENT_USER from '../queries/current_user_query'
 
 class Profile extends Component {
 	render() {
-
-		console.log(this.props.data)
-
 		return (
-			<div>
-				Profile
-			</div>
+			<Query query={CURRENT_USER}>
+			{({ loading, error, data }) => {
+				if (loading) return <p>Loading...</p>
+				if (error) return <p>Something went wrong</p>
+
+				return (
+					<div>
+						<p>Profile</p>
+					</div>
+				)
+			}}
+			</Query>
 		)
 	}
 }
 
 
-export default graphql(currentUserQuery, {
-	options: {
-		context: {
-			headers: {
-				"authentication": "test"
-			}
-		}
-	}
-})(Profile)
+export default Profile
