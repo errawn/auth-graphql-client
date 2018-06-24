@@ -1,5 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { graphql } from 'react-apollo'
 
-const Profile = () => <p>Hello!!!</p>
+import currentUserQuery from '../queries/CurrentUser'
 
-export default Profile
+class Profile extends Component {
+	render() {
+
+		console.log(this.props.data)
+
+		return (
+			<div>
+				Profile
+			</div>
+		)
+	}
+}
+
+
+export default graphql(currentUserQuery, {
+	options: {
+		context: {
+			headers: {
+				"authentication": "test"
+			}
+		}
+	}
+})(Profile)
