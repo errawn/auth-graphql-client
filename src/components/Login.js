@@ -1,8 +1,6 @@
 import React from 'react'
-import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
+import { Mutation } from 'react-apollo'
 import { Redirect } from 'react-router-dom'
-
 import {  
 	Alert,
 	Button,
@@ -13,6 +11,7 @@ import {
 } from 'react-bootstrap'
 
 import { checkAuth } from '../services/auth'
+import LOG_IN from '../mutations/login_mutation'
 
 class Login extends React.Component {
 	constructor(props) {
@@ -25,74 +24,56 @@ class Login extends React.Component {
 		}
 	}
 
-	onSubmit = async (e) => {
-		e.preventDefault()
-		const { email, password } = this.state
-
-		try {
-			const response = await this.props.mutate({
-				variables: { email, password }
-			})
-			const { data: { signin: { token } } } = response
-			this.setState({ errorMsg: false })
-			localStorage.setItem('token', token)
-
-			this.props.history.push('/profile')
-		} catch(e) {
-			this.setState({ errorMsg: true })
-			localStorage.removeItem('token')
-		}
-	}
-
 	render() {
 		if (checkAuth())
 			return <Redirect to="/profile" />
 
 		return (
-			<div>
-			{ this.state.errorMsg ? (
-				<Alert bsStyle="danger" onDismiss={this.handleDismiss}>
-		          <h4>Oh snap! You got an error!</h4>
-		          <p>Login Failed. Please provide correct credentials.</p>
-	        	</Alert>
-			): null}
-			<Form onSubmit={this.onSubmit.bind(this)}>
-				<FormGroup
-					role="form"
-					controlId="email"
-				>
-					<ControlLabel>Email address:</ControlLabel>
-					<FormControl
-						type="text"
-						value={this.state.email}
-						onChange={(e) => this.setState({ email: e.target.value})}
-					/>
-				</FormGroup>
-				<FormGroup
-					role="form"
-					controlId="password"
-				>
-					<ControlLabel>Password:</ControlLabel>
-					<FormControl
-						type="password"
-						value={this.state.password}
-						onChange={(e) => this.setState({ password: e.target.value})}
-					/>
-				</FormGroup>
-				<Button type="submit">Sign In</Button>
-			</Form>
-			</div>
+			<Mutation mutation={LOG_IN}>
+			{(login, { loading, error, data }) => {
+				return (
+					<div>
+						<Form
+							onSubmit={(e) => {
+								e.preventDefault()
+							 	const { email, password } = this.state
+							 	
+							 	login({ variables: { email, password } })
+							 		.then(response => console.log(response))
+							}}
+						>
+							<FormGroup role="form" controlId="email">
+								<ControlLabel>Email address:</ControlLabel>
+								<FormControl
+								 type="text"
+								 value={this.state.email}
+								 onChange={(e) => this.setState({ email: e.target.value})}
+								/>
+							</FormGroup>
+							<FormGroup role="form" controlId="password">
+								<ControlLabel>Password:</ControlLabel>
+								<FormControl
+								 type="password"
+								 value={this.state.password}
+								 onChange={(e) => this.setState({ password: e.target.value})}
+								/>
+							</FormGroup>
+							<Button type="submit">Sign In</Button>
+						</Form>
+						{ loading && <p>loading....</p> }
+						{ error && (
+							<Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+				        		<h4>Oh snap! You got an error!</h4>
+				        		<p>Login Failed. Please provide correct credentials.</p>
+				        	</Alert>
+				        ) }
+					</div>
+
+				)
+			}}
+			</Mutation>
 		)
 	}
-
 }
 
-const mutation = gql`
-	mutation SignIn($email: String!, $password: String!){
-	  signin(email: $email, password: $password) {
-	    token
-	  }
-	}
-`;
-
-export default graphql(mutation)(Login)
+export default Login
