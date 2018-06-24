@@ -14,14 +14,9 @@ import { checkAuth } from '../services/auth'
 import LOG_IN from '../mutations/login_mutation'
 
 class Login extends React.Component {
-	constructor(props) {
-		super(props)
-
-		this.state = { 
-			email: 'edrren@gmail.com', 
-			password: 'password',
-			errorMsg: false
-		}
+	state = {
+		email: 'edrren@gmail.com',
+		password: 'password'
 	}
 
 	render() {
@@ -31,15 +26,18 @@ class Login extends React.Component {
 		return (
 			<Mutation mutation={LOG_IN}>
 			{(login, { loading, error, data }) => {
+				if (data) {
+					const { signin: { token } } = data
+					localStorage.setItem('token', token)
+					this.props.history.push('/profile')
+				}
 				return (
 					<div>
 						<Form
 							onSubmit={(e) => {
 								e.preventDefault()
 							 	const { email, password } = this.state
-							 	
 							 	login({ variables: { email, password } })
-							 		.then(response => console.log(response))
 							}}
 						>
 							<FormGroup role="form" controlId="email">
@@ -64,7 +62,7 @@ class Login extends React.Component {
 						{ error && (
 							<Alert bsStyle="danger" onDismiss={this.handleDismiss}>
 				        		<h4>Oh snap! You got an error!</h4>
-				        		<p>Login Failed. Please provide correct credentials.</p>
+				        		<p>{error.message}</p>
 				        	</Alert>
 				        ) }
 					</div>
