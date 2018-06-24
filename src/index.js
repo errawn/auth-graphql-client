@@ -9,7 +9,7 @@ import Routes from './routes'
 const client = new ApolloClient({
   uri: '/graphql',
   headers: {
-    "test": "test"
+    "authentication": localStorage.getItem('token') || null
   }
 });
 
