@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
 
 import CURRENT_USER from '../queries/current_user_query'
 
@@ -14,6 +15,7 @@ class Profile extends Component {
 				return (
 					<div>
 						<p>Profile</p>
+						<Link to="/posts/new">New</Link>
 					</div>
 				)
 			}}
