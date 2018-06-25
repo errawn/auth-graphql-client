@@ -7,6 +7,7 @@ import App from './App'
 import Header from './components/Header'
 import Home from './components/Home'
 import Login from './components/Login'
+import PostCreate from './components/PostCreate'
 import Profile from './components/Profile'
 import Signup from './components/Signup'
 
@@ -33,6 +34,7 @@ const routes = () => {
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={Signup} />
 						<PrivateRoute path="/profile" component={Profile} />
+						<PrivateRoute path="/posts/new" component={PostCreate} />
 						<Route component={() => <p>Page Not found</p>} />
 					</Switch>
 				</App>
