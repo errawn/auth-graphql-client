@@ -8,6 +8,7 @@ import Header from './components/Header'
 import Home from './components/Home'
 import Login from './components/Login'
 import Profile from './components/Profile'
+import Signup from './components/Signup'
 
 // PrivateRoute Hoc
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -30,6 +31,7 @@ const routes = () => {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/login" component={Login} />
+						<Route path="/signup" component={Signup} />
 						<PrivateRoute path="/profile" component={Profile} />
 						<Route component={() => <p>Page Not found</p>} />
 					</Switch>
