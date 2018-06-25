@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { Nav, MenuItem, Navbar, NavItem, NavDropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import { checkAuth } from '../services/auth'
 
 class Header extends Component {
+ 
+  onLogoutClick() {
+    localStorage.removeItem('token')
+    this.props.history.push('/login')
+  }
+
   render() {
     return (
       <Navbar>
@@ -34,7 +40,7 @@ class Header extends Component {
                 <Link to="/blogs">My Blogs</Link>
               </MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey={3.4}>Logout</MenuItem>
+              <MenuItem eventKey={3.4} onClick={() => this.onLogoutClick()}>Logout</MenuItem>
             </NavDropdown>
           ) : null }
         </Nav>
@@ -44,4 +50,4 @@ class Header extends Component {
 }
 
 
-export default Header
+export default withRouter(Header)
