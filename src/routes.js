@@ -7,6 +7,7 @@ import App from './App'
 import Header from './components/Header'
 import Home from './components/Home'
 import Login from './components/Login'
+import Post from './components/Post'
 import PostCreate from './components/PostCreate'
 import PostList from './components/PostList'
 import Profile from './components/Profile'
@@ -35,6 +36,7 @@ const routes = () => {
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={Signup} />
 						<PrivateRoute path="/profile" component={Profile} />
+						<PrivateRoute path="/posts/:id" component={Post} />
 						<PrivateRoute path="/posts/new" component={PostCreate} />
 						<PrivateRoute path="/posts" component={PostList} />
 						<Route component={() => <p>Page Not found</p>} />
