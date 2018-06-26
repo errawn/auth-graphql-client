@@ -14,8 +14,7 @@ class Profile extends Component {
 
 				return (
 					<div>
-						<p>Profile</p>
-						<Link to="/posts/new">New</Link>
+						<h1>Welcome, {data.user.email}</h1>
 					</div>
 				)
 			}}

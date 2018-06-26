@@ -45,6 +45,18 @@ class Header extends Component {
               <MenuItem eventKey={3.4} onClick={() => this.onLogoutClick()}>Logout</MenuItem>
             </NavDropdown>
           ) : null }
+
+          { checkAuth() ? (
+            <NavItem>
+              <Link to="/posts">My Posts</Link>
+            </NavItem>) : null
+          }
+
+          { checkAuth() ? (
+            <NavItem>
+              <Link to="/posts/new">New Post</Link>
+            </NavItem>) : null
+          }
         </Nav>
       </Navbar>
     )
