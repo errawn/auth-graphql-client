@@ -37,7 +37,7 @@ class Header extends Component {
                 <Link to="/profile">My Profile</Link>
               </MenuItem>
               <MenuItem eventKey={3.2}>
-                <Link to="/blogs">My Blogs</Link>
+                <Link to="/posts">My Blogs</Link>
               </MenuItem>
               <MenuItem divider />
               <MenuItem eventKey={3.4} onClick={() => this.onLogoutClick()}>Logout</MenuItem>
