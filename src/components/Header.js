@@ -3,11 +3,13 @@ import { Nav, MenuItem, Navbar, NavItem, NavDropdown } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 
 import { checkAuth } from '../services/auth'
+import client from '../client'
 
 class Header extends Component {
  
   onLogoutClick() {
     localStorage.removeItem('token')
+    client.resetStore() //reset apollo store
     this.props.history.push('/login')
   }
 

@@ -29,7 +29,7 @@ class Login extends React.Component {
 				if (data) {
 					const { signin: { token } } = data
 					localStorage.setItem('token', token)
-					this.props.history.push('/profile')
+					return <Redirect to='/profile' />
 				}
 				return (
 					<div>
