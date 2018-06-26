@@ -7,8 +7,10 @@ import {
 	FormGroup
 } from 'react-bootstrap'
 import { Mutation } from 'react-apollo'
+import { Redirect } from 'react-router-dom'
 
 import POST_CREATE from '../mutations/post_create_mutation'
+import POSTS from '../queries/posts_query'
 
 class PostCreate extends Component {
 
@@ -19,17 +21,27 @@ class PostCreate extends Component {
 
 	render() {
 		return (
-			<Mutation mutation={POST_CREATE}>
-			{(postCreate, { loading, error, data }) => {
-				if (data) {
-					console.log(data)
-				}
+			<Mutation 
+				mutation={POST_CREATE}
+				//updates store cache
+				update={(cache, { data: { addPost } }) => { 
+					const { posts } = cache.readQuery({ query: POSTS })
+					cache.writeQuery({
+						query: POSTS,
+						data: { posts: posts.concat(addPost) }
+					})
+				}}
+			>
+			{(addPost, { loading, error, data }) => {
+				if (loading) return <p>Loading...</p> 
+				if (error) return <p>Something went wrong</p>
 
+				if (data) { return <Redirect to='/posts' /> }
 				return (
 					<Form onSubmit={e => {
 						e.preventDefault()
 						const { title, body } = this.state
-						postCreate({ variables: { title, body } })
+						addPost({ variables: { title, body } })
 					}}
 					>
 						<FormGroup role="form" controlId="email">
@@ -49,9 +61,6 @@ class PostCreate extends Component {
 							/>
 						</FormGroup>
 						<Button type="submit">Sign In</Button>
-
-						{ loading && <p>Loading...</p> }
-						{ error && <p>Something went wrong</p> }
 					</Form>
 				)
 			}}
