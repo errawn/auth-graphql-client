@@ -5,7 +5,7 @@ class Post extends Component {
 	render() {
 		return (
 			<div>
-				<Link to='/postsgit'>Back</Link>
+				<Link to='/posts'>Back</Link>
 				<h1>Post with id: {this.props.computedMatch.params.id}</h1>
 				<p>post body</p>
 			</div>
