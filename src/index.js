@@ -26,9 +26,13 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+const cache = new InMemoryCache({
+  dataIdFromObject: object => object.id || null
+});
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache
 });
 
 const Root = () => {
