@@ -36,8 +36,8 @@ const routes = () => {
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={Signup} />
 						<PrivateRoute path="/profile" component={Profile} />
-						<PrivateRoute path="/posts/:id" component={Post} />
 						<PrivateRoute path="/posts/new" component={PostCreate} />
+						<PrivateRoute path="/posts/:id" component={Post} />
 						<PrivateRoute path="/posts" component={PostList} />
 						<Route component={() => <p>Page Not found</p>} />
 					</Switch>
